@@ -1,5 +1,6 @@
 'use client';
 import Image from "next/image";
+import Link from 'next/link';
 
 const HeroSection = () => {
   return (
@@ -20,9 +21,9 @@ const HeroSection = () => {
 
           {/* Buttons */}
           <div className="mt-8 flex space-x-50 ml-3">
-            <button className="px-8 py-3 rounded-full bg-green-800 text-white font-medium hover:bg-green-900 transition">
+            <Link href="/pages/login" className="px-8 py-3 rounded-full bg-green-800 text-white font-medium hover:bg-green-900 transition inline-block text-center">
               Get Started
-            </button>
+            </Link>
             <button className="px-8 py-3 rounded-full bg-white text-green-800 font-medium border border-green-800 hover:bg-green-50 transition">
               Learn More
             </button>
