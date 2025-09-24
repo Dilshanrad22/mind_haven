@@ -41,7 +41,7 @@ export default function SignupPage() {
         style={{ position: 'absolute', top: 0, left: 0 }}
       />
 
-  <div className="relative z-10 w-full max-w-4xl bg-white border-2 border-[#35bc08] rounded-xl shadow-lg p-8 transform translate-x-6 md:translate-x-80 ">
+  <div className="relative z-10 w-full max-w-4xl bg-white border-2 border-[#35bc08] rounded-xl shadow-lg p-8 transform translate-x-6 md:translate-x-80">
         <div className="flex items-center gap-4 mb-6">
           <Image src="/images/logo.png" alt="Mind Haven Logo" width={84} height={84} />
           <div>
@@ -93,6 +93,17 @@ export default function SignupPage() {
               onChange={onChange}
               type="date"
               placeholder="DD/MM/YYYY"
+              className="mt-1 w-full px-4 py-2 text-[#16320d] border rounded-full placeholder:text-sm focus:outline-none focus:ring-1 focus:ring-[#16320d]"
+            />
+          </div>
+
+          <div>
+            <label className="text-m text-[#16320d]"> Counsellor ID</label>
+            <input
+              name="phone"
+              value={form.phone}
+              onChange={onChange}
+              placeholder="Enter your Counsellor ID"
               className="mt-1 w-full px-4 py-2 text-[#16320d] border rounded-full placeholder:text-sm focus:outline-none focus:ring-1 focus:ring-[#16320d]"
             />
           </div>

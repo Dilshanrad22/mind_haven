@@ -15,7 +15,7 @@ export default function LoginPage() {
         style={{ position: 'absolute', top: 0, left: 0 }}
       />
       {/* Login card (enlarged) */}
-  <div className="relative z-10 w-full max-w-md bg-[#f6fffa] border-4 border-[#35bc08] rounded-xl shadow-xl p-8 flex flex-col items-center transform translate-x-40 md:translate-x-100">
+  <div className="relative z-10 w-full max-w-md bg-[#f6fffa] border-2 border-[#35bc08] rounded-xl shadow-xl p-8 flex flex-col items-center transform translate-x-40 md:translate-x-100">
         <Image
           src="/images/logo.png"
           alt="Mind Haven Logo"
