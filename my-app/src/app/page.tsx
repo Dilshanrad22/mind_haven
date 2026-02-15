@@ -9,7 +9,6 @@ import {
   Shield,
   Users,
   Calendar,
-  MessageCircle,
   Star,
 } from "lucide-react";
 

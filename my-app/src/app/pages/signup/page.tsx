@@ -3,11 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { User, Mail, Lock, Phone, Calendar, Eye, EyeOff } from "lucide-react";
+import ApiService from '@/services/api';
 
 export default function SignupPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     fullName: '',
     userName: '',
@@ -23,13 +27,54 @@ export default function SignupPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate passwords match
     if (form.password !== form.confirmPassword) {
-      alert('Passwords do not match');
+      alert('Passwords do not match!');
       return;
     }
-    console.log('submit', form);
+
+    // Validate password length
+    if (form.password.length < 6) {
+      alert('Password must be at least 6 characters long!');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Call backend API
+      const result = await ApiService.signup({
+        email: form.email,
+        password: form.password,
+        name: form.fullName,
+        userType: 'user',
+        phone: form.phone,
+        dateOfBirth: form.dob,
+        gender: form.gender as 'male' | 'female' | 'other',
+      });
+
+      if (result.success) {
+        // Show success message
+        alert('🎉 Account created successfully! Redirecting to login page...');
+        
+        // Redirect to login page after 1 second
+        setTimeout(() => {
+          router.push('/pages/login');
+        }, 1000);
+      } else {
+        // Show error message
+        alert(`Error: ${result.message || 'Failed to create account'}`);
+      }
+    } catch (error: unknown) {
+      console.error('Signup error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      alert(`Error: ${errorMessage}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -271,9 +316,10 @@ export default function SignupPage() {
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+                disabled={loading}
+                className={`w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                Create Account
+                {loading ? 'Creating Account...' : 'Create Account'}
               </button>
 
               <p className="text-gray-600">

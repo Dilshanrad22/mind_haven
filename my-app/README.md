@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mind Haven - Frontend (Next.js)
 
-## Getting Started
+**Frontend-only Next.js application for Mind Haven Mental Wellness Platform**
 
-First, run the development server:
+## 🎨 This is FRONTEND ONLY
+
+This folder contains **only frontend code**. All backend API logic is in the separate `mind_haven_backend` folder.
+
+---
+
+## 📁 Clean Structure
+
+```
+my-app/
+├── src/
+│   ├── app/
+│   │   ├── components/      # UI Components
+│   │   ├── pages/           # Your pages (login, dashboard, etc.)
+│   │   ├── page.tsx         # Home page
+│   │   ├── layout.tsx       # Root layout
+│   │   └── globals.css      # Global styles
+│   ├── services/
+│   │   └── api.ts           # API service (calls backend at localhost:5000)
+│   └── types/
+│       └── index.ts         # TypeScript type definitions
+└── package.json
+```
+
+**No backend files here!** All API routes, models, and database code is in `mind_haven_backend`.
+
+---
+
+## 🚀 How to Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend will start on: **http://localhost:3000**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔗 Backend Connection
 
-## Learn More
+The frontend connects to the backend API at: **http://localhost:5000**
 
-To learn more about Next.js, take a look at the following resources:
+This is configured in `src/services/api.ts`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```typescript
+const API_BASE_URL = "http://localhost:5000";
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📦 What's Included
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ✅ Frontend Files (Keep these)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Pages**: Your UI pages (login, dashboard, etc.)
+- **Components**: Reusable UI components
+- **Services**: API service to communicate with backend
+- **Types**: TypeScript type definitions
+- **Styles**: CSS files
+
+### ❌ Removed (Now in Backend)
+
+- ~~API routes~~
+- ~~Database models~~
+- ~~Authentication middleware~~
+- ~~MongoDB connection~~
+- ~~JWT utilities~~
+
+All backend logic is now in the separate `mind_haven_backend` folder!
+
+---
+
+## 🎯 How to Use
+
+### Call Backend APIs
+
+```typescript
+import ApiService from "@/services/api";
+
+// Login
+const result = await ApiService.login({
+  email: "user@example.com",
+  password: "password123",
+});
+
+// Signup
+await ApiService.signup({
+  email: "user@example.com",
+  password: "password123",
+  name: "John Doe",
+  userType: "user",
+});
+
+// Get current user
+const user = await ApiService.getCurrentUser();
+
+// Logout
+ApiService.logout();
+```
+
+---
+
+## ⚠️ Important
+
+**Make sure the backend is running first!**
+
+```bash
+# In another terminal
+cd ../mind_haven_backend
+npm run dev
+```
+
+The backend must be running on port 5000 for the frontend to work.
+
+---
+
+## 🏗️ Tech Stack
+
+- **Framework**: Next.js 15
+- **UI Library**: React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Backend**: Separate Express.js server (see `mind_haven_backend`)
+
+---
+
+## 📚 Documentation
+
+For backend API documentation, see: `../mind_haven_backend/README.md`
+
+---
+
+**This is a clean, frontend-only application! 🎨**

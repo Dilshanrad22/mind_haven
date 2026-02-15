@@ -3,16 +3,51 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import ApiService from '@/services/api';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Add authentication logic
-    console.log('Login:', formData);
+    setLoading(true);
+
+    try {
+      // Call backend API to login
+      const result = await ApiService.login({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (result.success) {
+        // Get user type from response
+        const userType = result.data?.user?.userType;
+        
+        // Show success message
+        alert(`✅ Welcome back! Logging in...`);
+        
+        // Redirect based on user type
+        if (userType === 'doctor') {
+          router.push('/pages/dashboard/counsellor');
+        } else {
+          router.push('/pages/dashboard/user');
+        }
+      } else {
+        // Show error message
+        alert(`Error: ${result.message || 'Login failed'}`);
+      }
+    } catch (error: unknown) {
+      console.error('Login error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      alert(`Error: ${errorMessage}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -140,9 +175,10 @@ export default function LoginPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+                disabled={loading}
+                className={`w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                Sign In
+                {loading ? 'Signing in...' : 'Sign In'}
               </button>
 
               {/* Divider */}
@@ -175,7 +211,7 @@ export default function LoginPage() {
             {/* Sign Up Link */}
             <div className="mt-8 text-center">
               <p className="text-gray-600">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <Link 
                   href="/pages/user-type" 
                   className="text-green-600 font-bold hover:text-green-700 hover:underline transition-colors"
