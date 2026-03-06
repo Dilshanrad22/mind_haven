@@ -135,3 +135,10 @@ For backend API documentation, see: `../mind_haven_backend/README.md`
 ---
 
 **This is a clean, frontend-only application! 🎨**
+
+### 🔐 Test User Accounts
+
+| Role         | Email                | Password    |
+| ------------ | -------------------- | ----------- |
+| Regular User | john.doe@example.com | password123 |
+| Doctor       | dr.smith@example.com | doctor123   |

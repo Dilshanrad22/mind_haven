@@ -1,5 +1,14 @@
 // API Base URL - pointing to separate backend server
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+import type {
+  LoginRequest,
+  SignupRequest,
+  AuthResponse,
+  User,
+  DoctorProfile,
+  DoctorsListResponse,
+  ApiResponse,
+} from '@/types';
 
 class ApiService {
   private static getHeaders(includeAuth: boolean = false): HeadersInit {
@@ -36,14 +45,14 @@ class ApiService {
     }
   }
 
-  public static async login(credentials: { email: string; password: string }): Promise<any> {
+  public static async login(credentials: LoginRequest): Promise<AuthResponse> {
     const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: this.getHeaders(),
       body: JSON.stringify(credentials),
     });
 
-    const data = await response.json();
+    const data = (await response.json()) as AuthResponse;
     
     if (data.success && data.data?.token) {
       this.setToken(data.data.token);
@@ -52,23 +61,14 @@ class ApiService {
     return data;
   }
 
-  public static async signup(userData: {
-    email: string;
-    password: string;
-    name: string;
-    userType: 'user' | 'doctor';
-    phone?: string;
-    address?: string;
-    dateOfBirth?: string;
-    gender?: 'male' | 'female' | 'other';
-  }): Promise<any> {
+  public static async signup(userData: SignupRequest): Promise<AuthResponse> {
     const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
       method: 'POST',
       headers: this.getHeaders(),
       body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
+    const data = (await response.json()) as AuthResponse;
     
     if (data.success && data.data?.token) {
       this.setToken(data.data.token);
@@ -77,32 +77,34 @@ class ApiService {
     return data;
   }
 
-  public static async getCurrentUser(): Promise<any> {
+  public static async getCurrentUser(): Promise<ApiResponse<User>> {
     const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
       method: 'GET',
       headers: this.getHeaders(true),
     });
 
-    return await response.json();
+    return (await response.json()) as ApiResponse<User>;
   }
 
-  public static async updateDoctorProfile(profileData: any): Promise<any> {
+  public static async updateDoctorProfile(
+    profileData: Partial<DoctorProfile>,
+  ): Promise<ApiResponse<DoctorProfile>> {
     const response = await fetch(`${API_BASE_URL}/api/doctors/profile`, {
       method: 'PUT',
       headers: this.getHeaders(true),
       body: JSON.stringify(profileData),
     });
 
-    return await response.json();
+    return (await response.json()) as ApiResponse<DoctorProfile>;
   }
 
-  public static async getDoctorProfile(): Promise<any> {
+  public static async getDoctorProfile(): Promise<ApiResponse<DoctorProfile>> {
     const response = await fetch(`${API_BASE_URL}/api/doctors/profile`, {
       method: 'GET',
       headers: this.getHeaders(true),
     });
 
-    return await response.json();
+    return (await response.json()) as ApiResponse<DoctorProfile>;
   }
 
   public static async getDoctors(params?: {
@@ -111,7 +113,7 @@ class ApiService {
     isVerified?: boolean;
     page?: number;
     limit?: number;
-  }): Promise<any> {
+  }): Promise<DoctorsListResponse> {
     const queryParams = new URLSearchParams();
     
     if (params?.specialization) queryParams.append('specialization', params.specialization);
@@ -125,7 +127,7 @@ class ApiService {
       headers: this.getHeaders(),
     });
 
-    return await response.json();
+    return (await response.json()) as DoctorsListResponse;
   }
 
   public static logout(): void {

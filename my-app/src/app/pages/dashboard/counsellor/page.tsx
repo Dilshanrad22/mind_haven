@@ -1,8 +1,7 @@
 'use client'
 
-import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Users, Clock, DollarSign, Bell, Settings, LogOut, TrendingUp, Video, MessageCircle, Award, ChevronRight, CheckCircle, XCircle } from "lucide-react";
+import { Calendar, Users, Clock, Heart, Bell, Settings, LogOut, TrendingUp, Video, MessageCircle, Award, ChevronRight, CheckCircle, XCircle } from "lucide-react";
 
 export default function CounsellorDashboard() {
   const counsellor = {
@@ -12,7 +11,7 @@ export default function CounsellorDashboard() {
     reviews: 127,
     joinedDate: "June 2023",
     totalClients: 42,
-    monthlyEarnings: 5240
+    volunteerHours: 128
   };
 
   const todaySchedule = [
@@ -35,11 +34,11 @@ export default function CounsellorDashboard() {
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">Counsellor Dashboard</h1>
             <div className="flex items-center gap-4">
-              <button className="p-2 hover:bg-gray-100 rounded-xl transition-colors relative">
+              <button aria-label="Notifications" className="p-2 hover:bg-gray-100 rounded-xl transition-colors relative">
                 <Bell className="w-6 h-6 text-gray-600" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
-              <button className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
+              <button aria-label="Settings" className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
                 <Settings className="w-6 h-6 text-gray-600" />
               </button>
             </div>
@@ -98,7 +97,7 @@ export default function CounsellorDashboard() {
                   <TrendingUp className="w-5 h-5 text-blue-500" />
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-1">{todaySchedule.length}</div>
-                <div className="text-gray-600 text-sm">Today's Sessions</div>
+                <div className="text-gray-600 text-sm">Today&apos;s Sessions</div>
               </div>
 
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
@@ -114,20 +113,20 @@ export default function CounsellorDashboard() {
 
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-green-600" />
+                  <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                    <Heart className="w-6 h-6 text-pink-600" />
                   </div>
-                  <TrendingUp className="w-5 h-5 text-green-500" />
+                  <TrendingUp className="w-5 h-5 text-pink-500" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">${counsellor.monthlyEarnings}</div>
-                <div className="text-gray-600 text-sm">This Month</div>
+                <div className="text-3xl font-bold text-gray-900 mb-1">{counsellor.volunteerHours}h</div>
+                <div className="text-gray-600 text-sm">Volunteer Hours</div>
               </div>
             </div>
 
-            {/* Today's Schedule */}
+            {/* Today&apos;s Schedule */}
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-gray-900">Today's Schedule</h3>
+                <h3 className="text-xl font-bold text-gray-900">Today&apos;s Schedule</h3>
                 <Link href="/schedule" className="text-emerald-600 font-semibold hover:underline flex items-center gap-1">
                   View Full Calendar
                   <ChevronRight className="w-4 h-4" />
@@ -240,9 +239,9 @@ export default function CounsellorDashboard() {
                   <Calendar className="w-5 h-5" />
                   <span className="font-medium">Set Availability</span>
                 </Link>
-                <Link href="/earnings" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
-                  <DollarSign className="w-5 h-5" />
-                  <span className="font-medium">Earnings</span>
+                <Link href="/volunteer-impact" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
+                  <Heart className="w-5 h-5" />
+                  <span className="font-medium">My Impact</span>
                 </Link>
                 <Link href="/settings" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
                   <Settings className="w-5 h-5" />
@@ -285,8 +284,8 @@ export default function CounsellorDashboard() {
                   <span className="text-2xl font-bold">3</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-emerald-100">Earnings</span>
-                  <span className="text-2xl font-bold">$1,240</span>
+                  <span className="text-emerald-100">People Helped</span>
+                  <span className="text-2xl font-bold">24</span>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Calendar, User, ArrowRight } from 'lucide-react';
 
 interface BlogPost {
@@ -104,6 +105,7 @@ const MentalHealthBlog: React.FC = () => {
         <div className="flex justify-center items-center gap-4 mb-8">
           <button
             onClick={prevSlide}
+            aria-label="Previous blog posts"
             className="p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-green-50 group"
           >
             <ChevronLeft className="w-6 h-6 text-green-600 group-hover:text-green-700" />
@@ -126,6 +128,7 @@ const MentalHealthBlog: React.FC = () => {
           
           <button
             onClick={nextSlide}
+            aria-label="Next blog posts"
             className="p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-green-50 group"
           >
             <ChevronRight className="w-6 h-6 text-green-600 group-hover:text-green-700" />
@@ -140,17 +143,20 @@ const MentalHealthBlog: React.FC = () => {
             <div
               key={post.id}
               className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden"
-              style={{
-                animationDelay: `${index * 150}ms`
-              }}
+              style={
+                {
+                  animationDelay: `${index * 150}ms`,
+                } as React.CSSProperties
+              }
             >
               {/* Green Rectangle Image */}
               <div className="relative overflow-hidden">
-                <div className="w-full h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                  <img
+                <div className="relative w-full h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                  <Image
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-110 transform transition-transform duration-700"
+                    fill
+                    className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                   />
                 </div>
                 <div className="absolute top-4 left-4">
@@ -198,12 +204,14 @@ const MentalHealthBlog: React.FC = () => {
           <div
             key={i}
             className="absolute w-2 h-2 bg-green-300 rounded-full opacity-30 animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 2}s`,
-              animationDuration: '4s'
-            }}
+            style={
+              {
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${i * 2}s`,
+                animationDuration: '4s'
+              } as React.CSSProperties
+            }
           />
         ))}
       </div>

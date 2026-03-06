@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
   return (
@@ -7,9 +8,11 @@ const Navbar = () => {
         <div className="flex h-16 items-center">
           {/* Logo + Brand */}
           <div className="flex items-center space-x-2">
-            <img
-              src="/images/logo.png" // replace with your lotus logo path
+            <Image
+              src="/images/logo.png"
               alt="Mind Haven Logo"
+              width={68}
+              height={68}
               className="h-17 w-17"
             />
             <span className="text-[#00610B] font-bold text-2xl mt-2">MIND HAVEN</span>

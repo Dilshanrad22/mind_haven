@@ -1,8 +1,7 @@
 'use client'
 
-import Image from "next/image";
 import Link from "next/link";
-import { Calendar, MessageCircle, BookOpen, User, Bell, Settings, LogOut, Heart, TrendingUp, Clock, ChevronRight } from "lucide-react";
+import { Calendar, BookOpen, User, Bell, Settings, LogOut, Heart, TrendingUp, Clock, ChevronRight, Search } from "lucide-react";
 
 export default function UserDashboard() {
   const user = {
@@ -37,11 +36,11 @@ export default function UserDashboard() {
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">My Dashboard</h1>
             <div className="flex items-center gap-4">
-              <button className="p-2 hover:bg-gray-100 rounded-xl transition-colors relative">
+              <button aria-label="Notifications" className="p-2 hover:bg-gray-100 rounded-xl transition-colors relative">
                 <Bell className="w-6 h-6 text-gray-600" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
-              <button className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
+              <button aria-label="Settings" className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
                 <Settings className="w-6 h-6 text-gray-600" />
               </button>
             </div>
@@ -56,7 +55,7 @@ export default function UserDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-3xl font-bold mb-2">Welcome back, {user.name}! 👋</h2>
-              <p className="text-green-100 text-lg">You've completed {user.sessionsCompleted} sessions since {user.joinedDate}</p>
+              <p className="text-green-100 text-lg">You&apos;ve completed {user.sessionsCompleted} sessions since {user.joinedDate}</p>
             </div>
             <div className="hidden md:block">
               <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -84,16 +83,7 @@ export default function UserDashboard() {
                 <div className="text-gray-600 text-sm">Sessions Completed</div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">3</div>
-                <div className="text-gray-600 text-sm">Active Conversations</div>
-              </div>
+
 
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
                 <div className="flex items-center justify-between mb-4">
@@ -105,6 +95,21 @@ export default function UserDashboard() {
                 <div className="text-3xl font-bold text-gray-900 mb-1">24</div>
                 <div className="text-gray-600 text-sm">Articles Read</div>
               </div>
+            </div>
+
+            {/* Find a Counsellor Banner */}
+            <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-6 text-white flex items-center justify-between shadow-lg">
+              <div>
+                <h3 className="text-xl font-bold mb-1">Find a Counsellor 🩺</h3>
+                <p className="text-emerald-100 text-sm">Browse volunteer mental health professionals and send a session request.</p>
+              </div>
+              <Link
+                href="/pages/find-counsellors"
+                className="flex-shrink-0 ml-4 px-5 py-3 bg-white text-emerald-700 rounded-xl font-bold hover:bg-emerald-50 transition-all shadow-md flex items-center gap-2"
+              >
+                <Search className="w-4 h-4" />
+                Browse
+              </Link>
             </div>
 
             {/* Next Session Card */}
@@ -194,15 +199,15 @@ export default function UserDashboard() {
               </div>
 
               <div className="space-y-3">
-                <Link href="/profile" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
+                <Link href="/pages/find-counsellors" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
+                  <Search className="w-5 h-5" />
+                  <span className="font-medium">Find Counsellors</span>
+                </Link>
+                <Link href="/pages/profile" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
                   <User className="w-5 h-5" />
                   <span className="font-medium">My Profile</span>
                 </Link>
-                <Link href="/messages" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
-                  <MessageCircle className="w-5 h-5" />
-                  <span className="font-medium">Messages</span>
-                  <span className="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full">3</span>
-                </Link>
+
                 <Link href="/settings" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
                   <Settings className="w-5 h-5" />
                   <span className="font-medium">Settings</span>

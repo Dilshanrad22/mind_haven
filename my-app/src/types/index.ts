@@ -24,7 +24,6 @@ export interface DoctorProfile {
   licenseNumber: string;
   qualification: string[];
   experience: number;
-  consultationFee: number;
   availableSlots: AvailableSlot[];
   rating: number;
   totalReviews: number;
@@ -68,7 +67,7 @@ export interface AuthResponse {
   };
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   message?: string;
   data?: T;

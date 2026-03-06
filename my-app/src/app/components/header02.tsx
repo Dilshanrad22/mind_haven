@@ -8,11 +8,14 @@ const HeroSection02 = () => {
         
         {/* Left side - Image */}
         <div className="flex-1 flex justify-center ml-(-10)">
-          <img 
-            src="/images/hero02.png" 
-            alt="Mental wellness illustration" 
-            className="w-72 h-72 md:w-124 md:h-124 object-contain "
-          />
+          <div className="relative w-72 h-72 md:w-124 md:h-124">
+            <Image 
+              src="/images/hero02.png" 
+              alt="Mental wellness illustration" 
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
         
         {/* Right side - Content */}

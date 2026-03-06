@@ -29,7 +29,7 @@ export default function UserTypePage() {
             Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Mind Haven</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Choose how you'd like to continue your mental wellness journey
+            Choose how you&apos;d like to continue your mental wellness journey
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function UserTypePage() {
 
                 {/* Content */}
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  I'm Looking for Help
+                  I&apos;m Looking for Help
                 </h2>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                   Connect with professional mental health counsellors, book sessions, 
@@ -99,11 +99,11 @@ export default function UserTypePage() {
 
                 {/* Content */}
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  I'm a Counsellor
+                  I&apos;m a Counsellor
                 </h2>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                   Join our network of mental health professionals. Manage your practice, 
-                  connect with clients, and make a difference in people's lives.
+                  connect with clients, and make a difference in people&apos;s lives.
                 </p>
 
                 {/* Features List */}

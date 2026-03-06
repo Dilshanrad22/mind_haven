@@ -7,7 +7,6 @@ import {
   Brain,
   Heart,
   Shield,
-  Users,
   Calendar,
   Star,
 } from "lucide-react";
@@ -327,7 +326,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-lg mb-6 text-green-50">
-                  "{testimonial.text}"
+                  &ldquo;{testimonial.text}&rdquo;
                 </p>
                 <div>
                   <div className="font-bold text-white">{testimonial.name}</div>
