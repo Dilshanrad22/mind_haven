@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Search, Filter, Star, Users, Clock, Award, Heart,
   MessageCircle, ChevronLeft, X, CheckCircle, Loader2,
@@ -36,9 +37,11 @@ interface RequestForm {
 }
 
 export default function FindCounsellorsPage() {
+  const router = useRouter();
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [modalError, setModalError] = useState('');
   const [search, setSearch] = useState('');
   const [specFilter, setSpecFilter] = useState('');
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
@@ -73,7 +76,7 @@ export default function FindCounsellorsPage() {
     } finally {
       setLoading(false);
     }
-  }, [specFilter, API]);
+  }, [specFilter]);
 
   useEffect(() => {
     fetchDoctors();
@@ -87,14 +90,16 @@ export default function FindCounsellorsPage() {
   });
 
   function openRequestModal(doctor: Doctor) {
+    if (typeof window === 'undefined') return;
     const token = localStorage.getItem('authToken');
     if (!token) {
-      window.location.href = '/pages/login';
+      router.push('/pages/login');
       return;
     }
     setSelectedDoctor(doctor);
     setForm({ issue: '', message: '', preferredDate: '', preferredTime: '', sessionType: 'Video' });
     setSuccessMsg('');
+    setModalError('');
     setShowModal(true);
   }
 
@@ -102,21 +107,35 @@ export default function FindCounsellorsPage() {
     e.preventDefault();
     if (!selectedDoctor) return;
     setSubmitting(true);
+    setModalError('');
     try {
-      const token = localStorage.getItem('authToken');
+      const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+      if (!token) {
+        setModalError('Please log in to continue.');
+        setSubmitting(false);
+        return;
+      }
       const res = await fetch(`${API}/api/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ doctorId: selectedDoctor._id, ...form }),
+        body: JSON.stringify({
+          doctorId: selectedDoctor._id,
+          date: form.preferredDate,
+          startTime: form.preferredTime,
+          sessionType: form.sessionType.toLowerCase(),
+          issue: form.issue,
+          message: form.message,
+        }),
       });
       const data = await res.json();
       if (data.success) {
         setSuccessMsg(data.message);
+        setModalError('');
       } else {
-        setError(data.message || 'Failed to send request.');
+        setModalError(data.message || 'Failed to send request.');
       }
     } catch {
-      setError('Could not send request. Please try again.');
+      setModalError('Could not send request. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -166,6 +185,7 @@ export default function FindCounsellorsPage() {
             <div className="relative">
               <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <select
+                aria-label="Filter counsellors by specialization"
                 value={specFilter}
                 onChange={(e) => setSpecFilter(e.target.value)}
                 className="pl-12 pr-8 py-3 rounded-2xl text-gray-900 outline-none shadow-lg appearance-none bg-white focus:ring-2 focus:ring-white/50"
@@ -325,7 +345,9 @@ export default function FindCounsellorsPage() {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold">Request a Session</h2>
                 <button
-                  onClick={() => { setShowModal(false); setSuccessMsg(''); setError(''); }}
+                  type="button"
+                  onClick={() => { setShowModal(false); setSuccessMsg(''); setModalError(''); }}
+                  aria-label="Close modal"
                   className="p-2 hover:bg-white/20 rounded-xl transition-colors"
                 >
                   <X className="w-5 h-5" />
@@ -352,7 +374,7 @@ export default function FindCounsellorsPage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Request Sent! 🎉</h3>
                   <p className="text-gray-600 mb-6">{successMsg}</p>
                   <button
-                    onClick={() => { setShowModal(false); setSuccessMsg(''); }}
+                    onClick={() => { setShowModal(false); setSuccessMsg(''); setModalError(''); }}
                     className="px-8 py-3 bg-green-600 text-white rounded-2xl font-semibold hover:bg-green-700 transition-all"
                   >
                     Done
@@ -360,18 +382,19 @@ export default function FindCounsellorsPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmitRequest} className="space-y-4">
-                  {error && (
+                  {modalError && (
                     <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-3 text-sm">
-                      {error}
+                      {modalError}
                     </div>
                   )}
 
                   {/* Issue / Concern */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label htmlFor="issue-input" className="block text-sm font-semibold text-gray-700 mb-1">
                       What brings you here? <span className="text-red-500">*</span>
                     </label>
                     <input
+                      id="issue-input"
                       required
                       type="text"
                       value={form.issue}
@@ -392,11 +415,10 @@ export default function FindCounsellorsPage() {
                           key={type}
                           type="button"
                           onClick={() => setForm({ ...form, sessionType: type })}
-                          className={`py-2 px-3 rounded-xl border-2 text-sm font-semibold transition-all flex items-center justify-center gap-1 ${
-                            form.sessionType === type
+                          className={`py-2 px-3 rounded-xl border-2 text-sm font-semibold transition-all flex items-center justify-center gap-1 ${form.sessionType === type
                               ? 'border-green-500 bg-green-50 text-green-700'
                               : 'border-gray-200 text-gray-600 hover:border-green-300'
-                          }`}
+                            }`}
                         >
                           {type === 'Video' && <Video className="w-4 h-4" />}
                           {type === 'Chat' && <MessageCircle className="w-4 h-4" />}
@@ -410,11 +432,12 @@ export default function FindCounsellorsPage() {
                   {/* Preferred Date & Time */}
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                      <label htmlFor="date-input" className="block text-sm font-semibold text-gray-700 mb-1">
                         <Calendar className="inline w-4 h-4 mr-1" />
                         Preferred Date
                       </label>
                       <input
+                        id="date-input"
                         type="date"
                         value={form.preferredDate}
                         onChange={(e) => setForm({ ...form, preferredDate: e.target.value })}
@@ -423,14 +446,16 @@ export default function FindCounsellorsPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                      <label htmlFor="time-input" className="block text-sm font-semibold text-gray-700 mb-1">
                         <Clock className="inline w-4 h-4 mr-1" />
                         Preferred Time
                       </label>
                       <input
+                        id="time-input"
                         type="time"
                         value={form.preferredTime}
                         onChange={(e) => setForm({ ...form, preferredTime: e.target.value })}
+                        aria-label="Preferred time"
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-sm"
                       />
                     </div>
@@ -438,10 +463,11 @@ export default function FindCounsellorsPage() {
 
                   {/* Additional Message */}
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    <label htmlFor="message-input" className="block text-sm font-semibold text-gray-700 mb-1">
                       Additional message (optional)
                     </label>
                     <textarea
+                      id="message-input"
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
                       placeholder="Tell the counsellor anything else that might help them prepare..."

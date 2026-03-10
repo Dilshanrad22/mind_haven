@@ -162,7 +162,7 @@ export default function ProfilePage() {
           <div className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 rounded-2xl p-4 shadow-sm">
             <CheckCircle className="w-5 h-5 flex-shrink-0" />
             <span className="font-medium">{success}</span>
-            <button onClick={() => setSuccess('')} className="ml-auto text-green-500 hover:text-green-700">
+            <button type="button" title="Close success message" onClick={() => setSuccess('')} className="ml-auto text-green-500 hover:text-green-700">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -171,7 +171,7 @@ export default function ProfilePage() {
           <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 rounded-2xl p-4 shadow-sm">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
             <span className="font-medium">{error}</span>
-            <button onClick={() => setError('')} className="ml-auto text-red-400 hover:text-red-600">
+            <button type="button" title="Close error message" onClick={() => setError('')} className="ml-auto text-red-400 hover:text-red-600">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -204,6 +204,7 @@ export default function ProfilePage() {
                 {/* Camera button overlay */}
                 <button
                   type="button"
+                  title="Change profile picture"
                   onClick={() => fileInputRef.current?.click()}
                   className="absolute bottom-1 right-1 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center shadow-md hover:bg-green-700 transition-colors"
                 >
@@ -243,6 +244,8 @@ export default function ProfilePage() {
                   accept="image/jpeg,image/png,image/webp"
                   onChange={handleImageChange}
                   className="hidden"
+                  title="Upload profile picture"
+                  aria-label="Upload profile picture"
                 />
               </div>
             </div>

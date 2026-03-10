@@ -30,6 +30,7 @@ export interface DoctorProfile {
   bio: string;
   services: string[];
   isVerified: boolean;
+  consultationFee?: number;
   verificationDocuments?: string[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -93,4 +94,95 @@ export interface DoctorsListResponse {
     doctors: DoctorProfile[];
     pagination: PaginationInfo;
   };
+}
+
+// Appointment Types
+export type AppointmentStatus = 'pending' | 'confirmed' | 'completed' | 'cancelled' | 'rescheduled';
+export type SessionType = 'video' | 'chat' | 'in-person';
+
+export interface Appointment {
+  _id: string;
+  userId: User | string;
+  doctorId: DoctorProfile & { userId: User };
+  date: string;
+  startTime: string;
+  endTime?: string;
+  sessionType: SessionType;
+  status: AppointmentStatus;
+  issue?: string;
+  message?: string;
+  notes?: string;
+  cancelReason?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Message Types
+export interface Message {
+  _id: string;
+  senderId: { _id: string; name: string; profileImage?: string } | string;
+  receiverId: { _id: string; name: string; profileImage?: string } | string;
+  appointmentId?: string;
+  content: string;
+  messageType: 'text' | 'system';
+  isRead: boolean;
+  createdAt: string;
+}
+
+export interface Conversation {
+  userId: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    profileImage?: string;
+    userType: string;
+  };
+  lastMessage: string;
+  lastMessageDate: string;
+  unreadCount: number;
+}
+
+// Article Types
+export type ArticleCategory = 'anxiety' | 'depression' | 'stress' | 'relationships' | 'self-care' | 'mindfulness' | 'general';
+
+export interface Article {
+  _id: string;
+  title: string;
+  content: string;
+  summary?: string;
+  author: string;
+  category: ArticleCategory;
+  tags: string[];
+  imageUrl?: string;
+  isPublished: boolean;
+  readTime: number;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Notification Types
+export type NotificationType = 'appointment' | 'message' | 'review' | 'system';
+
+export interface Notification {
+  _id: string;
+  userId: string;
+  title: string;
+  message: string;
+  type: NotificationType;
+  relatedId?: string;
+  isRead: boolean;
+  createdAt: string;
+}
+
+// Review Types
+export interface Review {
+  _id: string;
+  userId: { _id: string; name: string; profileImage?: string } | string;
+  doctorId: string;
+  appointmentId?: string;
+  rating: number;
+  comment?: string;
+  createdAt: string;
 }

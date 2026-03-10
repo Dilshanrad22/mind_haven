@@ -29,7 +29,7 @@ export default function SignupPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate passwords match
     if (form.password !== form.confirmPassword) {
       alert('Passwords do not match!');
@@ -59,7 +59,7 @@ export default function SignupPage() {
       if (result.success) {
         // Show success message
         alert('🎉 Account created successfully! Redirecting to login page...');
-        
+
         // Redirect to login page after 1 second
         setTimeout(() => {
           router.push('/pages/login');
@@ -79,7 +79,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#D5FFE3] via-emerald-50 to-white py-20 px-6">
-      
+
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
@@ -87,17 +87,17 @@ export default function SignupPage() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto">
-        
+
         {/* Card */}
         <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-green-100 overflow-hidden">
-          
+
           {/* Header with gradient */}
           <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-10 py-8 text-white">
             <div className="flex items-center gap-6">
-              <Image 
-                src="/images/logo.png" 
-                alt="Mind Haven Logo" 
-                width={80} 
+              <Image
+                src="/images/logo.png"
+                alt="Mind Haven Logo"
+                width={80}
                 height={80}
                 className="bg-white rounded-2xl p-2 shadow-lg"
               />
@@ -111,10 +111,10 @@ export default function SignupPage() {
           {/* Form */}
           <form onSubmit={onSubmit} className="p-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              
+
               {/* Full Name */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
                   Full Name *
                 </label>
                 <div className="relative">
@@ -122,6 +122,7 @@ export default function SignupPage() {
                     <User className="w-5 h-5" />
                   </div>
                   <input
+                    id="fullName"
                     name="fullName"
                     value={form.fullName}
                     onChange={onChange}
@@ -134,7 +135,7 @@ export default function SignupPage() {
 
               {/* Username */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="userName" className="block text-sm font-semibold text-gray-700 mb-2">
                   Username *
                 </label>
                 <div className="relative">
@@ -142,6 +143,7 @@ export default function SignupPage() {
                     <User className="w-5 h-5" />
                   </div>
                   <input
+                    id="userName"
                     name="userName"
                     value={form.userName}
                     onChange={onChange}
@@ -154,7 +156,7 @@ export default function SignupPage() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                   Email Address *
                 </label>
                 <div className="relative">
@@ -162,6 +164,7 @@ export default function SignupPage() {
                     <Mail className="w-5 h-5" />
                   </div>
                   <input
+                    id="email"
                     name="email"
                     value={form.email}
                     onChange={onChange}
@@ -175,7 +178,7 @@ export default function SignupPage() {
 
               {/* Phone */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
                   Phone Number *
                 </label>
                 <div className="relative">
@@ -183,6 +186,7 @@ export default function SignupPage() {
                     <Phone className="w-5 h-5" />
                   </div>
                   <input
+                    id="phone"
                     name="phone"
                     value={form.phone}
                     onChange={onChange}
@@ -195,7 +199,7 @@ export default function SignupPage() {
 
               {/* Date of Birth */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="dob" className="block text-sm font-semibold text-gray-700 mb-2">
                   Date of Birth *
                 </label>
                 <div className="relative">
@@ -203,6 +207,7 @@ export default function SignupPage() {
                     <Calendar className="w-5 h-5" />
                   </div>
                   <input
+                    id="dob"
                     name="dob"
                     value={form.dob}
                     onChange={onChange}
@@ -215,10 +220,11 @@ export default function SignupPage() {
 
               {/* Gender */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="gender" className="block text-sm font-semibold text-gray-700 mb-2">
                   Gender *
                 </label>
                 <select
+                  id="gender"
                   name="gender"
                   value={form.gender}
                   onChange={onChange}
@@ -235,7 +241,7 @@ export default function SignupPage() {
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                   Password *
                 </label>
                 <div className="relative">
@@ -243,6 +249,7 @@ export default function SignupPage() {
                     <Lock className="w-5 h-5" />
                   </div>
                   <input
+                    id="password"
                     name="password"
                     value={form.password}
                     onChange={onChange}
@@ -254,6 +261,7 @@ export default function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -263,7 +271,7 @@ export default function SignupPage() {
 
               {/* Confirm Password */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 mb-2">
                   Confirm Password *
                 </label>
                 <div className="relative">
@@ -271,6 +279,7 @@ export default function SignupPage() {
                     <Lock className="w-5 h-5" />
                   </div>
                   <input
+                    id="confirmPassword"
                     name="confirmPassword"
                     value={form.confirmPassword}
                     onChange={onChange}
@@ -282,6 +291,7 @@ export default function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
                     {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -293,9 +303,10 @@ export default function SignupPage() {
 
             {/* Terms */}
             <div className="mt-6">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input 
-                  type="checkbox" 
+              <label htmlFor="terms-checkbox" className="flex items-start gap-3 cursor-pointer">
+                <input
+                  id="terms-checkbox"
+                  type="checkbox"
                   className="mt-1 w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500"
                   required
                 />
