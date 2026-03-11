@@ -394,7 +394,7 @@ export default function SignupDocPage() {
                   I certify that I am a licensed mental health professional and agree to the{' '}
                   <Link href="/counsellor-terms" className="text-emerald-600 font-semibold hover:underline">
                     Counsellor Agreement
-                  </Link>,{' '}
+                  </Link>,{'   '}
                   <Link href="/terms" className="text-emerald-600 font-semibold hover:underline">
                     Terms of Service
                   </Link>, and{' '}
