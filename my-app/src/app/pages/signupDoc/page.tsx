@@ -32,7 +32,7 @@ export default function SignupDocPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate passwords match
     if (form.password !== form.confirmPassword) {
       alert('Passwords do not match!');
@@ -62,7 +62,7 @@ export default function SignupDocPage() {
       if (result.success) {
         // Show success message
         alert('🎉 Doctor account created successfully! Redirecting to login page...');
-        
+
         // Redirect to login page after 1 second
         setTimeout(() => {
           router.push('/pages/login');
@@ -82,7 +82,7 @@ export default function SignupDocPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#D5FFE3] via-emerald-50 to-white py-20 px-6">
-      
+
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
@@ -90,17 +90,17 @@ export default function SignupDocPage() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        
+
         {/* Card */}
         <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-emerald-100 overflow-hidden">
-          
+
           {/* Header with gradient */}
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-10 py-8 text-white">
             <div className="flex items-center gap-6">
-              <Image 
-                src="/images/logo.png" 
-                alt="Mind Haven Logo" 
-                width={80} 
+              <Image
+                src="/images/logo.png"
+                alt="Mind Haven Logo"
+                width={80}
                 height={80}
                 className="bg-white rounded-2xl p-2 shadow-lg"
               />
@@ -117,7 +117,7 @@ export default function SignupDocPage() {
 
           {/* Form */}
           <form onSubmit={onSubmit} className="p-10">
-            
+
             {/* Professional Information Section */}
             <div className="mb-8">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function SignupDocPage() {
                 Professional Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 {/* Counsellor ID */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -197,7 +197,7 @@ export default function SignupDocPage() {
                 Personal Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 {/* Full Name */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -383,9 +383,9 @@ export default function SignupDocPage() {
             {/* Terms */}
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-6">
               <label htmlFor="agreeTerms" className="flex items-start gap-3 cursor-pointer">
-                <input 
+                <input
                   id="agreeTerms"
-                  type="checkbox" 
+                  type="checkbox"
                   className="mt-1 w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
                   required
                   aria-label="I agree to terms and conditions"
