@@ -377,6 +377,126 @@ class ApiService {
 
     return (await response.json()) as ApiResponse<Review[]>;
   }
+
+  // ==================== ADMIN ====================
+
+  public static async getAdminStats(): Promise<ApiResponse<any>> {
+    console.log('API: Calling GET /api/admin/stats');
+    const response = await fetch(`${API_BASE_URL}/api/admin/stats`, {
+      method: 'GET',
+      headers: this.getHeaders(true),
+    });
+
+    const data = (await response.json()) as ApiResponse<any>;
+    console.log('API: Stats response status:', response.status, 'data:', data);
+    return data;
+  }
+
+  public static async getAdminUsers(params?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    userType?: string;
+    isActive?: boolean;
+  }): Promise<ApiResponse<{ users: User[]; pagination: any }>> {
+    const queryParams = new URLSearchParams();
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+    if (params?.search) queryParams.append('search', params.search);
+    if (params?.userType) queryParams.append('userType', params.userType);
+    if (params?.isActive !== undefined) queryParams.append('isActive', params.isActive.toString());
+
+    const url = `${API_BASE_URL}/api/admin/users?${queryParams.toString()}`;
+    console.log('API: Calling GET', url);
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true),
+    });
+
+    const data = (await response.json()) as ApiResponse<{ users: User[]; pagination: any }>;
+    console.log('API: Users response status:', response.status, 'data:', data);
+    return data;
+  }
+
+  public static async getAdminDoctors(params?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    isVerified?: boolean;
+  }): Promise<ApiResponse<{ doctors: any[]; pagination: any }>> {
+    const queryParams = new URLSearchParams();
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+    if (params?.search) queryParams.append('search', params.search);
+    if (params?.isVerified !== undefined) queryParams.append('isVerified', params.isVerified.toString());
+
+    const url = `${API_BASE_URL}/api/admin/doctors?${queryParams.toString()}`;
+    console.log('API: Calling GET', url);
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true),
+    });
+
+    const data = (await response.json()) as ApiResponse<{ doctors: any[]; pagination: any }>;
+    console.log('API: Doctors response status:', response.status, 'data:', data);
+    return data;
+  }
+
+  public static async toggleUserStatus(userId: string): Promise<ApiResponse> {
+    const response = await fetch(`${API_BASE_URL}/api/admin/user/${userId}/toggle-status`, {
+      method: 'PUT',
+      headers: this.getHeaders(true),
+    });
+
+    return (await response.json()) as ApiResponse;
+  }
+
+  public static async toggleDoctorVerification(doctorId: string): Promise<ApiResponse> {
+    const response = await fetch(`${API_BASE_URL}/api/admin/doctor/${doctorId}/verify`, {
+      method: 'PUT',
+      headers: this.getHeaders(true),
+    });
+
+    return (await response.json()) as ApiResponse;
+  }
+
+  public static async getAdminUserDetails(userId: string): Promise<ApiResponse<any>> {
+    const response = await fetch(`${API_BASE_URL}/api/admin/user/${userId}`, {
+      method: 'GET',
+      headers: this.getHeaders(true),
+    });
+
+    return (await response.json()) as ApiResponse<any>;
+  }
+
+  public static async deleteUser(userId: string): Promise<ApiResponse> {
+    const response = await fetch(`${API_BASE_URL}/api/admin/user/${userId}`, {
+      method: 'DELETE',
+      headers: this.getHeaders(true),
+    });
+
+    return (await response.json()) as ApiResponse;
+  }
+
+  public static async getAdminAppointments(params?: {
+    page?: number;
+    limit?: number;
+    status?: string;
+  }): Promise<ApiResponse<{ appointments: Appointment[]; pagination: any }>> {
+    const queryParams = new URLSearchParams();
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.limit) queryParams.append('limit', params.limit.toString());
+    if (params?.status) queryParams.append('status', params.status);
+
+    const response = await fetch(`${API_BASE_URL}/api/admin/appointments?${queryParams.toString()}`, {
+      method: 'GET',
+      headers: this.getHeaders(true),
+    });
+
+    return (await response.json()) as ApiResponse<{ appointments: Appointment[]; pagination: any }>;
+  }
 }
 
 export default ApiService;
