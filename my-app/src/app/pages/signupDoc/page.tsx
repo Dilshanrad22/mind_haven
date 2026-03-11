@@ -148,10 +148,11 @@ export default function SignupDocPage() {
 
                 {/* Specialization */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="specialization" className="block text-sm font-semibold text-gray-700 mb-2">
                     Specialization *
                   </label>
                   <select
+                    id="specialization"
                     name="specialization"
                     value={form.specialization}
                     onChange={onChange}
@@ -280,7 +281,7 @@ export default function SignupDocPage() {
 
                 {/* Date of Birth */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="dob" className="block text-sm font-semibold text-gray-700 mb-2">
                     Date of Birth *
                   </label>
                   <div className="relative">
@@ -288,6 +289,7 @@ export default function SignupDocPage() {
                       <Calendar className="w-5 h-5" />
                     </div>
                     <input
+                      id="dob"
                       name="dob"
                       value={form.dob}
                       onChange={onChange}
@@ -300,10 +302,11 @@ export default function SignupDocPage() {
 
                 {/* Gender */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="gender" className="block text-sm font-semibold text-gray-700 mb-2">
                     Gender *
                   </label>
                   <select
+                    id="gender"
                     name="gender"
                     value={form.gender}
                     onChange={onChange}
@@ -379,11 +382,13 @@ export default function SignupDocPage() {
 
             {/* Terms */}
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-6">
-              <label className="flex items-start gap-3 cursor-pointer">
+              <label htmlFor="agreeTerms" className="flex items-start gap-3 cursor-pointer">
                 <input 
+                  id="agreeTerms"
                   type="checkbox" 
                   className="mt-1 w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
                   required
+                  aria-label="I agree to terms and conditions"
                 />
                 <span className="text-sm text-gray-700">
                   I certify that I am a licensed mental health professional and agree to the{' '}
