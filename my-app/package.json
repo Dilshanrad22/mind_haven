@@ -6,14 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.544.0",
     "mongoose": "^9.1.5",
-    "next": "^15.5.12",
+    "next": "^16.1.6",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

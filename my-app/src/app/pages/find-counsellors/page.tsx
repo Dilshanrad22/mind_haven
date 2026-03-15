@@ -400,7 +400,7 @@ export default function FindCounsellorsPage() {
                       value={form.issue}
                       onChange={(e) => setForm({ ...form, issue: e.target.value })}
                       placeholder="e.g. Anxiety, Stress, Depression, Relationship issues..."
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-black placeholder:text-black"
                     />
                   </div>
 
@@ -442,7 +442,7 @@ export default function FindCounsellorsPage() {
                         value={form.preferredDate}
                         onChange={(e) => setForm({ ...form, preferredDate: e.target.value })}
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-sm"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-sm text-black"
                       />
                     </div>
                     <div>
@@ -456,7 +456,7 @@ export default function FindCounsellorsPage() {
                         value={form.preferredTime}
                         onChange={(e) => setForm({ ...form, preferredTime: e.target.value })}
                         aria-label="Preferred time"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-sm"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-sm text-black"
                       />
                     </div>
                   </div>
@@ -473,7 +473,7 @@ export default function FindCounsellorsPage() {
                       placeholder="Tell the counsellor anything else that might help them prepare..."
                       rows={3}
                       maxLength={500}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors resize-none"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-400 transition-colors resize-none text-black placeholder:text-black"
                     />
                     <div className="text-xs text-gray-400 text-right">{form.message.length}/500</div>
                   </div>

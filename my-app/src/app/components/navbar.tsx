@@ -2,12 +2,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { Menu, X, LogOut, Bell } from 'lucide-react';
+import { Menu, X, Bell } from 'lucide-react';
 import ApiService from '@/services/api';
 
 const Navbar = () => {
-  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,13 +24,12 @@ const Navbar = () => {
     }
   }, []);
 
-  const handleLogout = () => {
-    ApiService.logout();
-    setIsLoggedIn(false);
-    router.push('/pages/login');
-  };
-
-  const dashboardLink = userType === 'doctor' ? '/pages/dashboard/counsellor' : '/pages/dashboard/user';
+  const loggedInLinks = [
+    { href: '/pages/services', label: 'Services' },
+    { href: '/pages/resources', label: 'Blogs' },
+    { href: '/pages/about', label: 'About Us' },
+    { href: '/pages/contact', label: 'Contact Us' },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-[#D5FFE3] z-50">
@@ -56,10 +53,9 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link href={dashboardLink} className="text-[#00610B] text-lg hover:text-[#16320d]">Dashboard</Link>
-                <Link href="/pages/appointments" className="text-[#00610B] text-lg hover:text-[#16320d]">Appointments</Link>
-                <Link href="/pages/messages" className="text-[#00610B] text-lg hover:text-[#16320d]">Messages</Link>
-                <Link href="/pages/profile" className="text-[#00610B] text-lg hover:text-[#16320d]">Profile</Link>
+                {loggedInLinks.map((item) => (
+                  <Link key={item.href} href={item.href} className="text-[#00610B] text-lg hover:text-[#16320d]">{item.label}</Link>
+                ))}
                 <div className="relative">
                   <Link href="/pages/settings" className="text-[#00610B] hover:text-[#16320d]">
                     <Bell className="w-5 h-5" />
@@ -68,9 +64,6 @@ const Navbar = () => {
                     <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">{unreadCount > 9 ? '9+' : unreadCount}</span>
                   )}
                 </div>
-                <button onClick={handleLogout} className="flex items-center gap-1 px-4 py-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 transition text-sm font-medium">
-                  <LogOut className="w-4 h-4" />Logout
-                </button>
               </>
             )}
           </div>
@@ -94,12 +87,10 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link href={dashboardLink} className="block py-2 text-[#00610B]">Dashboard</Link>
-                <Link href="/pages/appointments" className="block py-2 text-[#00610B]">Appointments</Link>
-                <Link href="/pages/messages" className="block py-2 text-[#00610B]">Messages</Link>
-                <Link href="/pages/profile" className="block py-2 text-[#00610B]">Profile</Link>
+                {loggedInLinks.map((item) => (
+                  <Link key={item.href} href={item.href} className="block py-2 text-[#00610B]">{item.label}</Link>
+                ))}
                 <Link href="/pages/settings" className="block py-2 text-[#00610B]">Settings</Link>
-                <button onClick={handleLogout} className="block py-2 text-red-600 font-semibold">Logout</button>
               </>
             )}
           </div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, Users, Clock, Heart, Bell, Settings, LogOut, TrendingUp, Video, MessageCircle, Award, ChevronRight, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { Calendar, Users, Clock, Heart, Bell, Settings, TrendingUp, Video, MessageCircle, Award, ChevronRight, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import ApiService from '@/services/api';
 import type { User, Appointment, DoctorProfile } from '@/types';
 
@@ -60,11 +60,6 @@ export default function CounsellorDashboard() {
       const res = await ApiService.updateAppointmentStatus(id, 'cancelled', { cancelReason: 'Declined by counsellor' });
       if (res.success) loadData();
     } catch { /* ignore */ }
-  };
-
-  const handleLogout = () => {
-    ApiService.logout();
-    router.push('/pages/login');
   };
 
   if (loading) {
@@ -279,9 +274,6 @@ export default function CounsellorDashboard() {
                 <Link href="/pages/settings" className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition-all text-gray-700">
                   <Settings className="w-5 h-5" /><span className="font-medium">Settings</span>
                 </Link>
-                <button type="button" onClick={handleLogout} className="flex items-center gap-3 p-3 hover:bg-red-50 rounded-xl transition-all text-red-600 w-full">
-                  <LogOut className="w-5 h-5" /><span className="font-medium">Logout</span>
-                </button>
               </div>
             </div>
           </div>
