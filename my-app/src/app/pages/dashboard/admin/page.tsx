@@ -44,7 +44,7 @@ interface User {
   userType: string;
   phone?: string;
   isActive: boolean;
-  createdAt: string;
+  createdAt: string | Date;
 }
 
 interface Doctor {
@@ -85,7 +85,9 @@ export default function AdminDashboard() {
 
       try {
         const result = await ApiService.getCurrentUser();
-        if (!result.success || result.data.userType !== 'admin') {
+        const currentUser = result.data;
+
+        if (!result.success || !currentUser || currentUser.userType !== 'admin') {
           alert('Access denied. Admin privileges required.');
           router.push('/pages/login');
           return;
@@ -111,7 +113,7 @@ export default function AdminDashboard() {
       console.log('📊 Fetching admin stats...');
       const result = await ApiService.getAdminStats();
       console.log('Stats result:', result);
-      if (result.success) {
+      if (result.success && result.data) {
         console.log('✓ Stats loaded:', result.data);
         setStats(result.data);
       } else {
@@ -131,7 +133,7 @@ export default function AdminDashboard() {
       console.log('👥 Fetching users...');
       const result = await ApiService.getAdminUsers({ page: 1, limit: 10 });
       console.log('Users result:', result);
-      if (result.success) {
+      if (result.success && result.data) {
         console.log(`✓ Loaded ${result.data.users.length} users`);
         setUsers(result.data.users);
       } else {
@@ -149,7 +151,7 @@ export default function AdminDashboard() {
       console.log('👨‍⚕️ Fetching doctors...');
       const result = await ApiService.getAdminDoctors({ page: 1, limit: 10 });
       console.log('Doctors result:', result);
-      if (result.success) {
+      if (result.success && result.data) {
         console.log(`✓ Loaded ${result.data.doctors.length} doctors`);
         setDoctors(result.data.doctors);
       } else {

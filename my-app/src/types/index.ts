@@ -3,7 +3,7 @@ export interface User {
   _id: string;
   email: string;
   name: string;
-  userType: 'user' | 'doctor';
+  userType: 'user' | 'doctor' | 'admin';
   phone?: string;
   address?: string;
   dateOfBirth?: Date;

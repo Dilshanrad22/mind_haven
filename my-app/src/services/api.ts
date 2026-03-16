@@ -1,5 +1,5 @@
 // API Base URL - pointing to separate backend server
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 import type {
   LoginRequest,
   SignupRequest,

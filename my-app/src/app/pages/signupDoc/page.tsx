@@ -392,13 +392,13 @@ export default function SignupDocPage() {
                 />
                 <span className="text-sm text-gray-700">
                   I certify that I am a licensed mental health professional and agree to the{' '}
-                  <Link href="/counsellor-terms" className="text-emerald-600 font-semibold hover:underline">
+                  <Link href="/pages/terms" className="text-emerald-600 font-semibold hover:underline">
                     Counsellor Agreement
                   </Link>,{'   '}
-                  <Link href="/terms" className="text-emerald-600 font-semibold hover:underline">
+                    <Link href="/pages/terms" className="text-emerald-600 font-semibold hover:underline">
                     Terms of Service
                   </Link>, and{' '}
-                  <Link href="/privacy" className="text-emerald-600 font-semibold hover:underline">
+                    <Link href="/pages/privacy" className="text-emerald-600 font-semibold hover:underline">
                     Privacy Policy
                   </Link>
                 </span>
