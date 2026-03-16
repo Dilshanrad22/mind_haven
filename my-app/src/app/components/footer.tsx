@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-emerald-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <span>© {new Date().getFullYear()} Mind Haven. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Mind Haven. All rights reserved .</span>
           <div className="flex items-center gap-4">
             <Link href="/pages/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/pages/terms" className="hover:text-white transition-colors">Terms</Link>
