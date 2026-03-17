@@ -80,10 +80,17 @@ export default function ResourcesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#D5FFE3]">
+    <div className="min-h-screen bg-gradient-to-br from-[#D5FFE3] via-emerald-50 to-white">
       <Navbar />
+
+      {/* Background glow elements (same mood as login page) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
+      </div>
+
       <section className="pt-24 pb-16 bg-gradient-to-br from-[#00610B] to-[#16320D] text-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Mental Health Resources</h1>
           <p className="text-xl text-green-100 max-w-3xl mx-auto mb-8">
             Expert-written articles and guides to support your mental wellness journey.
@@ -95,7 +102,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-8">
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-8">
         <div className="mb-10">
           <h2 className="text-2xl font-bold text-[#16320D] mb-4">PDF Resources</h2>
           <p className="text-gray-600 mb-5">Download or open research-backed mental health guides and reports.</p>
