@@ -80,7 +80,7 @@ export default function ResourcesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#D5FFE3]">
       <Navbar />
       <section className="pt-24 pb-16 bg-gradient-to-br from-[#00610B] to-[#16320D] text-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -102,10 +102,10 @@ export default function ResourcesPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {pdfResources.map((pdf) => (
-              <div key={pdf.id} className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+              <div key={pdf.id} className="bg-white border border-green-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
-                    <FileText className="w-5 h-5 text-red-600" />
+                  <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
+                    <FileText className="w-5 h-5 text-[#00610B]" />
                   </div>
                   <h3 className="font-semibold text-[#16320D] leading-snug">{pdf.title}</h3>
                 </div>

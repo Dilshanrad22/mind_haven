@@ -20,7 +20,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#D5FFE3]">
       <Navbar />
       {/* Hero */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-[#00610B] to-[#16320D] text-white">
@@ -56,7 +56,7 @@ export default function ServicesPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-[#F6FFF9]">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-[#00610B] mb-12">How It Works</h2>
           <div className="grid md:grid-cols-4 gap-8">
