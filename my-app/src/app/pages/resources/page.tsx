@@ -1,11 +1,39 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Search, Clock, Eye, BookOpen } from 'lucide-react';
+import { Search, Clock, Eye, BookOpen, FileText, ExternalLink, Download } from 'lucide-react';
 import Navbar from '../../components/navbar';
 import ApiService from '@/services/api';
 import type { Article } from '@/types';
 
 const categories = ['all', 'anxiety', 'depression', 'stress', 'relationships', 'self-care', 'mindfulness', 'general'];
+
+const pdfResources = [
+  {
+    id: '9789241503648_eng',
+    title: 'WHO Guidance on Mental Health and Psychosocial Support',
+    file: '/blogs/9789241503648_eng.pdf',
+  },
+  {
+    id: '9789241548069_eng',
+    title: 'WHO Mental Health Policy and Service Guide',
+    file: '/blogs/9789241548069_eng.pdf',
+  },
+  {
+    id: 'adolescent-guidelines',
+    title: 'Guidelines on Mental Health Interventions for Adolescents',
+    file: '/blogs/guidelines-on-mental-health-promotive-and-preventive-interventions-for-adolescents-hat.pdf',
+  },
+  {
+    id: 'children-young-people',
+    title: 'Mental Health of Children and Young People Report',
+    file: '/blogs/Mental_health_of_children_and_young_people_1737384104.pdf',
+  },
+  {
+    id: 'sogiesc-study',
+    title: 'Study Report: Mental Health and Well-being of Children and Youth with Diverse SOGIESC',
+    file: '/blogs/PDF-Study-report-mental-health-and-well-being-of-childrean-and-youth-with-diverse-sogiesc-2023.pdf',
+  },
+];
 
 export default function ResourcesPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -68,6 +96,44 @@ export default function ResourcesPage() {
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-8">
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold text-[#16320D] mb-4">PDF Resources</h2>
+          <p className="text-gray-600 mb-5">Download or open research-backed mental health guides and reports.</p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {pdfResources.map((pdf) => (
+              <div key={pdf.id} className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
+                    <FileText className="w-5 h-5 text-red-600" />
+                  </div>
+                  <h3 className="font-semibold text-[#16320D] leading-snug">{pdf.title}</h3>
+                </div>
+
+                <div className="flex gap-2">
+                  <a
+                    href={pdf.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#00610B] text-white text-sm font-medium hover:bg-[#16320D] transition-colors"
+                  >
+                    Open <ExternalLink className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={pdf.file}
+                    download
+                    aria-label={`Download ${pdf.title}`}
+                    title={`Download ${pdf.title}`}
+                    className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50"
+                  >
+                    <Download className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Category tabs */}
         <div className="flex flex-wrap gap-2 mb-8">
           {categories.map((cat) => (
