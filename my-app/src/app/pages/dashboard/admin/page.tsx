@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
   Users, UserCheck, Stethoscope, Calendar, FileText, Star,
   TrendingUp, Activity, CheckCircle, XCircle, Clock, AlertCircle,
-  Search, Filter, Eye, Ban, Shield, LogOut
+  Search, Filter, Eye, Ban
 } from 'lucide-react';
 import ApiService from '@/services/api';
 
@@ -190,11 +190,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    ApiService.logout();
-    router.push('/pages/login');
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#D5FFE3] to-white flex items-center justify-center">
@@ -208,28 +203,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#D5FFE3] to-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-lg border-b border-green-100">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Shield className="w-8 h-8 text-green-600" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-                <p className="text-sm text-gray-600">Mind Haven Platform Management</p>
-              </div>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-all"
-            >
-              <LogOut className="w-4 h-4" />
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 py-8">
         {statusMessage && (
           <div
