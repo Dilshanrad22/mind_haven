@@ -12,6 +12,7 @@ export default function SignupDocPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
     fullName: '',
     userName: '',
@@ -32,16 +33,17 @@ export default function SignupDocPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
 
     // Validate passwords match
     if (form.password !== form.confirmPassword) {
-      alert('Passwords do not match!');
+      setErrorMessage('Passwords do not match!');
       return;
     }
 
     // Validate password length
     if (form.password.length < 6) {
-      alert('Password must be at least 6 characters long!');
+      setErrorMessage('Password must be at least 6 characters long!');
       return;
     }
 
@@ -65,13 +67,12 @@ export default function SignupDocPage() {
           router.push('/pages/login');
         }, 1000);
       } else {
-        // Show error message
-        alert(`Error: ${result.message || 'Failed to create account'}`);
+        setErrorMessage(result.message || 'Failed to create account');
       }
     } catch (error: unknown) {
       console.error('Doctor signup error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
-      alert(`Error: ${errorMessage}`);
+      const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      setErrorMessage(message);
     } finally {
       setLoading(false);
     }
@@ -114,6 +115,11 @@ export default function SignupDocPage() {
 
           {/* Form */}
           <form onSubmit={onSubmit} className="p-10">
+            {errorMessage && (
+              <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {errorMessage}
+              </div>
+            )}
 
             {/* Professional Information Section */}
             <div className="mb-8">

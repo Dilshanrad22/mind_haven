@@ -74,6 +74,7 @@ export default function AdminDashboard() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'doctors'>('overview');
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     // Check if user is admin
@@ -88,7 +89,6 @@ export default function AdminDashboard() {
         const currentUser = result.data;
 
         if (!result.success || !currentUser || currentUser.userType !== 'admin') {
-          alert('Access denied. Admin privileges required.');
           router.push('/pages/login');
           return;
         }
@@ -118,11 +118,11 @@ export default function AdminDashboard() {
         setStats(result.data);
       } else {
         console.error('❌ Stats fetch failed:', result.message);
-        alert(`Failed to load stats: ${result.message}`);
+        setStatusMessage({ type: 'error', text: `Failed to load stats: ${result.message}` });
       }
     } catch (error) {
       console.error('❌ Error fetching stats:', error);
-      alert('Error loading stats. Check console for details.');
+      setStatusMessage({ type: 'error', text: 'Error loading stats. Check console for details.' });
     } finally {
       setLoading(false);
     }
@@ -138,11 +138,11 @@ export default function AdminDashboard() {
         setUsers(result.data.users);
       } else {
         console.error('❌ Users fetch failed:', result.message);
-        alert(`Failed to load users: ${result.message}`);
+        setStatusMessage({ type: 'error', text: `Failed to load users: ${result.message}` });
       }
     } catch (error) {
       console.error('❌ Error fetching users:', error);
-      alert('Error loading users. Check console for details.');
+      setStatusMessage({ type: 'error', text: 'Error loading users. Check console for details.' });
     }
   };
 
@@ -156,11 +156,11 @@ export default function AdminDashboard() {
         setDoctors(result.data.doctors);
       } else {
         console.error('❌ Doctors fetch failed:', result.message);
-        alert(`Failed to load doctors: ${result.message}`);
+        setStatusMessage({ type: 'error', text: `Failed to load doctors: ${result.message}` });
       }
     } catch (error) {
       console.error('❌ Error fetching doctors:', error);
-      alert('Error loading doctors. Check console for details.');
+      setStatusMessage({ type: 'error', text: 'Error loading doctors. Check console for details.' });
     }
   };
 
@@ -168,11 +168,12 @@ export default function AdminDashboard() {
     try {
       const result = await ApiService.toggleUserStatus(userId);
       if (result.success) {
-        alert(result.message);
+        setStatusMessage({ type: 'success', text: result.message || 'User status updated successfully.' });
         await fetchUsers();
       }
     } catch (error) {
-      alert('Error updating user status');
+      console.error('Error updating user status:', error);
+      setStatusMessage({ type: 'error', text: 'Error updating user status' });
     }
   };
 
@@ -180,11 +181,12 @@ export default function AdminDashboard() {
     try {
       const result = await ApiService.toggleDoctorVerification(doctorId);
       if (result.success) {
-        alert(result.message);
+        setStatusMessage({ type: 'success', text: result.message || 'Doctor verification updated successfully.' });
         await fetchDoctors();
       }
     } catch (error) {
-      alert('Error updating doctor verification');
+      console.error('Error updating doctor verification:', error);
+      setStatusMessage({ type: 'error', text: 'Error updating doctor verification' });
     }
   };
 
@@ -229,6 +231,18 @@ export default function AdminDashboard() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
+        {statusMessage && (
+          <div
+            className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
+              statusMessage.type === 'error'
+                ? 'border-red-200 bg-red-50 text-red-700'
+                : 'border-green-200 bg-green-50 text-green-700'
+            }`}
+          >
+            {statusMessage.text}
+          </div>
+        )}
+
         {/* Stats Overview */}
         {stats && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

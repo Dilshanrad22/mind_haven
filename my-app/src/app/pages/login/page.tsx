@@ -11,10 +11,12 @@ export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
     setLoading(true);
 
     try {
@@ -37,13 +39,12 @@ export default function LoginPage() {
           router.push('/pages/dashboard/user');
         }
       } else {
-        // Show error message
-        alert(`Error: ${result.message || 'Login failed'}`);
+        setErrorMessage(result.message || 'Login failed');
       }
     } catch (error: unknown) {
       console.error('Login error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
-      alert(`Error: ${errorMessage}`);
+      const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      setErrorMessage(message);
     } finally {
       setLoading(false);
     }
@@ -106,6 +107,11 @@ export default function LoginPage() {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
+              {errorMessage && (
+                <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {errorMessage}
+                </div>
+              )}
 
               {/* Email Field */}
               <div>
