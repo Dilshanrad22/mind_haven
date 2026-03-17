@@ -16,7 +16,7 @@ const LayoutShell = ({ children }: LayoutShellProps) => {
     <>
       {!isDashboardRoute && <Navbar />}
       <main className={`flex-1 ${isDashboardRoute ? '' : 'pt-16'}`}>{children}</main>
-      <Footer />
+      {!isDashboardRoute && <Footer />}
     </>
   );
 };
