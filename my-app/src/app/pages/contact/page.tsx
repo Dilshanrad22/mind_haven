@@ -4,12 +4,12 @@ import { Mail, Phone, MapPin, Clock, ChevronDown, ChevronUp } from 'lucide-react
 import Navbar from '../../components/navbar';
 
 const CONTACT_SETTINGS = {
-  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'hello@mindhaven.lk',
-  supportPhone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+94 11 278 3456',
-  supportAddress: process.env.NEXT_PUBLIC_SUPPORT_ADDRESS || 'No. 42, Flower Road, Colombo 07, Sri Lanka',
-  supportHours: process.env.NEXT_PUBLIC_SUPPORT_HOURS || 'Mon-Fri 8:30 AM-7:00 PM (IST)',
-  emergencyLine: process.env.NEXT_PUBLIC_EMERGENCY_LINE || '1990',
-  mapLabel: process.env.NEXT_PUBLIC_CONTACT_MAP_LABEL || 'Mind Haven Support Center, Colombo 07',
+  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'dulanjanassd@gmail.com',
+  supportPhone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '0717646067',
+  supportAddress: process.env.NEXT_PUBLIC_SUPPORT_ADDRESS || 'University of Moratuwa',
+  supportHours: process.env.NEXT_PUBLIC_SUPPORT_HOURS || '24 h',
+  emergencyLine: process.env.NEXT_PUBLIC_EMERGENCY_LINE || '0781385218',
+  mapLabel: process.env.NEXT_PUBLIC_CONTACT_MAP_LABEL || 'University of Moratuwa',
 };
 
 const SUBJECT_OPTIONS = [
