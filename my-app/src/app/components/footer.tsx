@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -24,6 +25,17 @@ const Footer = () => {
             <Link href="/pages/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/pages/terms" className="hover:text-white transition-colors">Terms</Link>
           </div>
+        </div>
+
+        <div className="mt-6 pt-4 border-t border-emerald-900/40 flex flex-col items-center justify-center gap-2">
+          <Image
+            src="/images/leo-club-logo.png"
+            alt="Leo Club of University of Moratuwa"
+            width={160}
+            height={48}
+            className="h-12 w-auto object-contain"
+          />
+          <p className="text-xs text-emerald-200">Powered by Leo Club of University of Moratuwa</p>
         </div>
       </div>
     </footer>
