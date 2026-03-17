@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, BookOpen, User, Bell, Settings, LogOut, Heart, TrendingUp, Clock, ChevronRight, Search, Loader2 } from 'lucide-react';
+import { Calendar, BookOpen, User, Settings, LogOut, Heart, TrendingUp, Clock, ChevronRight, Search, Loader2 } from 'lucide-react';
 import ApiService from '@/services/api';
 import type { User as UserType, Appointment, Article } from '@/types';
 
@@ -68,23 +68,6 @@ export default function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#D5FFE3] to-gray-50">
-
-      {/* Top Navigation */}
-      <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">My Dashboard</h1>
-            <div className="flex items-center gap-4">
-              <Link href="/pages/settings" className="p-2 hover:bg-gray-100 rounded-xl transition-colors relative">
-                <Bell className="w-6 h-6 text-gray-600" />
-              </Link>
-              <Link href="/pages/settings" className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
-                <Settings className="w-6 h-6 text-gray-600" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
 
