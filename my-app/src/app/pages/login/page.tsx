@@ -28,9 +28,6 @@ export default function LoginPage() {
         // Get user type from response
         const userType = result.data?.user?.userType;
 
-        // Show success message
-        alert(`✅ Welcome back! Logging in...`);
-
         // Redirect based on user type
         if (userType === 'admin') {
           router.push('/pages/dashboard/admin');

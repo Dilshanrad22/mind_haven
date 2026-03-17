@@ -57,9 +57,6 @@ export default function SignupPage() {
       });
 
       if (result.success) {
-        // Show success message
-        alert('🎉 Account created successfully! Redirecting to login page...');
-
         // Redirect to login page after 1 second
         setTimeout(() => {
           router.push('/pages/login');

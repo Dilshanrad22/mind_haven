@@ -60,9 +60,6 @@ export default function SignupDocPage() {
       });
 
       if (result.success) {
-        // Show success message
-        alert('🎉 Doctor account created successfully! Redirecting to login page...');
-
         // Redirect to login page after 1 second
         setTimeout(() => {
           router.push('/pages/login');
