@@ -3,24 +3,56 @@ import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, ChevronDown, ChevronUp } from 'lucide-react';
 import Navbar from '../../components/navbar';
 
+const CONTACT_SETTINGS = {
+  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'hello@mindhaven.lk',
+  supportPhone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+94 11 278 3456',
+  supportAddress: process.env.NEXT_PUBLIC_SUPPORT_ADDRESS || 'No. 42, Flower Road, Colombo 07, Sri Lanka',
+  supportHours: process.env.NEXT_PUBLIC_SUPPORT_HOURS || 'Mon-Fri 8:30 AM-7:00 PM (IST)',
+  emergencyLine: process.env.NEXT_PUBLIC_EMERGENCY_LINE || '1990',
+  mapLabel: process.env.NEXT_PUBLIC_CONTACT_MAP_LABEL || 'Mind Haven Support Center, Colombo 07',
+};
+
+const SUBJECT_OPTIONS = [
+  { value: 'general', label: 'General Question' },
+  { value: 'account', label: 'Account and Login Help' },
+  { value: 'appointment', label: 'Appointment Support' },
+  { value: 'billing', label: 'Billing and Payments' },
+  { value: 'partnership', label: 'Partnership and Media' },
+];
+
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: 'general', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const contactInfo = [
-    { icon: Mail, title: 'Email', value: 'support@mindhaven.com' },
-    { icon: Phone, title: 'Phone', value: '+94 11 234 5678' },
-    { icon: MapPin, title: 'Address', value: 'Colombo, Sri Lanka' },
-    { icon: Clock, title: 'Hours', value: 'Mon-Fri 9AM-6PM' },
+    { icon: Mail, title: 'Email', value: CONTACT_SETTINGS.supportEmail },
+    { icon: Phone, title: 'Phone', value: CONTACT_SETTINGS.supportPhone },
+    { icon: MapPin, title: 'Address', value: CONTACT_SETTINGS.supportAddress },
+    { icon: Clock, title: 'Hours', value: CONTACT_SETTINGS.supportHours },
   ];
 
   const faqs = [
-    { q: 'How do I book my first session?', a: 'Create an account, browse our counsellors, and click "Request a Session" on any counsellor\'s profile. Choose your preferred date, time, and session type.' },
-    { q: 'Is my information confidential?', a: 'Absolutely. We follow strict privacy protocols and all communications between you and your counsellor are encrypted and confidential.' },
-    { q: 'Can I change my counsellor?', a: 'Yes, you can switch counsellors at any time. Simply browse our directory and book a session with a different counsellor.' },
-    { q: 'What if I need urgent help?', a: 'If you are in immediate danger, please call your local emergency services. For non-emergency urgent support, use our crisis support feature for priority access.' },
-    { q: 'How much does it cost?', a: 'We offer both free and premium plans. Free users get limited sessions, while premium subscribers enjoy unlimited access to all features.' },
+    {
+      q: 'How soon will I receive a response?',
+      a: 'Our support team usually responds within 4 business hours for standard requests and within 1 business hour for appointment-related issues.',
+    },
+    {
+      q: 'Is my personal and therapy information confidential?',
+      a: 'Yes. Mind Haven follows strict confidentiality practices. Data shared through the platform is handled according to our privacy policy and local data protection standards.',
+    },
+    {
+      q: 'Can I reschedule or cancel a session?',
+      a: 'Yes. You can manage upcoming sessions from your dashboard. For urgent scheduling issues, contact support and include your booking email.',
+    },
+    {
+      q: 'What if I need immediate medical or crisis support?',
+      a: `If this is an emergency, call your local emergency line immediately (Sri Lanka: ${CONTACT_SETTINGS.emergencyLine}). Mind Haven support is not a replacement for emergency medical services.`,
+    },
+    {
+      q: 'Do you support organizations and universities?',
+      a: 'Yes. We provide customized mental wellness programs for organizations, schools, and universities. Select Partnership and Media in the contact form to reach our team.',
+    },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,11 +67,19 @@ export default function ContactPage() {
       <section className="pt-24 pb-16 bg-gradient-to-br from-[#00610B] to-[#16320D] text-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">Have questions? We&#39;d love to hear from you.</p>
+          <p className="text-xl text-green-100 max-w-3xl mx-auto">Our clinical support and customer success teams are here to help you with appointments, account access, and wellness guidance.</p>
         </div>
       </section>
 
       <section className="py-16 max-w-6xl mx-auto px-6">
+        <div className="mb-8 rounded-2xl border border-red-200 bg-red-50 p-5">
+          <h2 className="text-lg font-bold text-red-800 mb-1">Need urgent help?</h2>
+          <p className="text-red-700 text-sm">
+            If you are in immediate danger or experiencing a mental health crisis, call emergency services now.
+            {' '}Sri Lanka emergency line: <span className="font-semibold">{CONTACT_SETTINGS.emergencyLine}</span>.
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 gap-12">
           {/* Form */}
           <div className="bg-white rounded-2xl p-8 shadow-lg">
@@ -49,7 +89,7 @@ export default function ContactPage() {
                   <Mail className="w-8 h-8 text-[#00610B]" />
                 </div>
                 <h3 className="text-2xl font-bold text-[#00610B] mb-2">Message Sent!</h3>
-                <p className="text-gray-600">We&#39;ll get back to you within 24 hours.</p>
+                <p className="text-gray-600">Thanks for reaching out. Our team will contact you shortly using the details you provided.</p>
                 <button onClick={() => { setSubmitted(false); setForm({ name: '', email: '', subject: 'general', message: '' }); }} className="mt-6 text-[#00610B] font-semibold hover:underline">Send another message</button>
               </div>
             ) : (
@@ -57,27 +97,26 @@ export default function ContactPage() {
                 <h2 className="text-2xl font-bold text-[#16320D] mb-6">Send us a message</h2>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <input type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none" placeholder="Your name" />
+                    <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input id="contact-name" type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none" placeholder="Your name" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none" placeholder="your@email.com" />
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">Work or Personal Email</label>
+                    <input id="contact-email" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none" placeholder="your@email.com" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                    <select value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none bg-white">
-                      <option value="general">General Inquiry</option>
-                      <option value="support">Technical Support</option>
-                      <option value="billing">Billing Question</option>
-                      <option value="feedback">Feedback</option>
-                      <option value="partnership">Partnership</option>
+                    <label htmlFor="contact-subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                    <select id="contact-subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none bg-white">
+                      {SUBJECT_OPTIONS.map((option) => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                      ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                    <textarea required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none resize-none" placeholder="How can we help?" />
+                    <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                    <textarea id="contact-message" required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#00610B] focus:border-transparent outline-none resize-none" placeholder="How can we help?" />
                   </div>
+                  <p className="text-xs text-gray-500">By submitting this form, you consent to being contacted by our support team regarding your request.</p>
                   <button type="submit" className="w-full py-3 bg-[#00610B] text-white rounded-lg font-semibold hover:bg-[#16320D] transition-colors">Send Message</button>
                 </div>
               </form>
@@ -99,7 +138,7 @@ export default function ContactPage() {
             <div className="bg-green-100 rounded-2xl h-64 flex items-center justify-center">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-[#00610B] mx-auto mb-2" />
-                <p className="text-[#16320D] font-semibold">Colombo, Sri Lanka</p>
+                <p className="text-[#16320D] font-semibold">{CONTACT_SETTINGS.mapLabel}</p>
               </div>
             </div>
           </div>
