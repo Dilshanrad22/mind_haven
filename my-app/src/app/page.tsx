@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Brain,
@@ -11,7 +12,32 @@ import {
   Star,
 } from "lucide-react";
 
+interface HomeStats {
+  totalCounsellors: number;
+  totalUsers: number;
+  supportAvailability: string;
+}
+
 export default function Home() {
+  const [stats, setStats] = useState<HomeStats | null>(null);
+  const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(`${API}/api/site/stats`);
+        const data = await response.json();
+        if (data.success && data.data) {
+          setStats(data.data);
+        }
+      } catch {
+        console.error('Failed to load homepage stats');
+      }
+    };
+
+    fetchStats();
+  }, [API]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#D5FFE3] to-white">
       {/* Hero Section */}
@@ -69,15 +95,15 @@ export default function Home() {
               {/* Stats */}
               <div className="flex gap-8 pt-8">
                 <div>
-                  <div className="text-3xl font-bold text-green-600">500+</div>
+                  <div className="text-3xl font-bold text-green-600">{stats ? stats.totalCounsellors.toLocaleString() : '...'}</div>
                   <div className="text-gray-600 text-sm">Counsellors</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-green-600">10k+</div>
+                  <div className="text-3xl font-bold text-green-600">{stats ? stats.totalUsers.toLocaleString() : '...'}</div>
                   <div className="text-gray-600 text-sm">Happy Users</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-green-600">24/7</div>
+                  <div className="text-3xl font-bold text-green-600">{stats?.supportAvailability || '24/7'}</div>
                   <div className="text-gray-600 text-sm">Support</div>
                 </div>
               </div>
