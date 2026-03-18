@@ -48,6 +48,7 @@ const Navbar = () => {
                 <Link href="/" className="text-[#00610B] text-lg hover:text-[#16320d]">Home</Link>
                 <Link href="/pages/about" className="text-[#00610B] text-lg hover:text-[#16320d]">About Us</Link>
                 <Link href="/pages/services" className="text-[#00610B] text-lg hover:text-[#16320d]">Services</Link>
+                <Link href="/pages/resources" className="text-[#00610B] text-lg hover:text-[#16320d]">Blogs</Link>
                 <Link href="/pages/contact" className="px-5 py-2 rounded-full bg-[#16320d] text-white hover:bg-green-700">Contact Us</Link>
               </>
             ) : (
@@ -81,6 +82,7 @@ const Navbar = () => {
                 <Link href="/" className="block py-2 text-[#00610B]">Home</Link>
                 <Link href="/pages/about" className="block py-2 text-[#00610B]">About Us</Link>
                 <Link href="/pages/services" className="block py-2 text-[#00610B]">Services</Link>
+                <Link href="/pages/resources" className="block py-2 text-[#00610B]">Blogs</Link>
                 <Link href="/pages/contact" className="block py-2 text-[#00610B]">Contact Us</Link>
               </>
             ) : (

@@ -72,34 +72,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Plans */}
-      <section className="py-16 max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-[#00610B] mb-12">Choose Your Plan</h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100">
-            <h3 className="text-2xl font-bold text-[#16320D] mb-2">Free</h3>
-            <p className="text-gray-500 mb-4">Get started with basic features</p>
-            <div className="text-4xl font-bold text-[#00610B] mb-6">$0<span className="text-lg text-gray-400">/mo</span></div>
-            <ul className="space-y-3 mb-8">
-              {['Browse counsellors', 'Read articles & resources', '1 chat session/month', 'Community support'].map((f) => (
-                <li key={f} className="flex items-center text-gray-600"><span className="text-green-500 mr-2">&#10003;</span>{f}</li>
-              ))}
-            </ul>
-            <a href="/pages/user-type" className="block text-center py-3 border-2 border-[#00610B] text-[#00610B] rounded-full font-semibold hover:bg-green-50 transition">Get Started</a>
-          </div>
-          <div className="bg-gradient-to-br from-[#00610B] to-[#16320D] rounded-2xl p-8 shadow-lg text-white">
-            <h3 className="text-2xl font-bold mb-2">Premium</h3>
-            <p className="text-green-200 mb-4">Full access to all features</p>
-            <div className="text-4xl font-bold mb-6">$29<span className="text-lg text-green-200">/mo</span></div>
-            <ul className="space-y-3 mb-8">
-              {['Unlimited sessions', 'Video & chat support', 'Priority booking', 'Progress tracking', 'Crisis support', 'All resources access'].map((f) => (
-                <li key={f} className="flex items-center text-green-100"><span className="mr-2">&#10003;</span>{f}</li>
-              ))}
-            </ul>
-            <a href="/pages/user-type" className="block text-center py-3 bg-white text-[#00610B] rounded-full font-semibold hover:bg-green-50 transition">Get Premium</a>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
