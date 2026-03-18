@@ -64,6 +64,8 @@ export default function FindCounsellorsPage() {
     try {
       const params = new URLSearchParams();
       if (specFilter) params.append('specialization', specFilter);
+      // Backend defaults to limit=10; request more so newly registered counsellors are visible.
+      params.append('limit', '100');
       const res = await fetch(`${API}/api/doctors?${params.toString()}`);
       const data = await res.json();
       if (data.success) {
