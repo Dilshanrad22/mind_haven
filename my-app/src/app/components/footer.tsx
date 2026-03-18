@@ -35,7 +35,7 @@ const Footer = () => {
             height={48}
             className="h-12 w-auto object-contain"
           />
-          <p className="text-xs text-emerald-200">Powered by Leo Club of University of Moratuwa</p>
+          <p className="text-xs text-emerald-200">Developed by Leo Club of University of Moratuwa</p>
         </div>
       </div>
     </footer>
